@@ -141,6 +141,42 @@ body.menu-open #membership.is-visible {
 	z-index: 2;
 }
 
+.home-lower-panel {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+	width: min(100%, 72rem);
+	margin-top: 2rem;
+}
+
+.quote-strip {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 140px;
+	padding: 1.25rem 1rem;
+	border: 1px solid rgba(232, 184, 75, 0.28);
+	border-radius: 1rem;
+	background: linear-gradient(180deg, rgba(81, 41, 18, 0.42), rgba(16, 14, 12, 0.9));
+	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.18);
+}
+
+.quote-strip p {
+	margin: 0;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: clamp(1rem, 2vw, 1.35rem);
+	line-height: 1.5;
+}
+
+.quote-strip span {
+	margin-top: 0.8rem;
+	color: var(--gold);
+	font-size: 0.75rem;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
 .home-model-background {
 	position: relative;
 	z-index: 0;
@@ -508,6 +544,50 @@ body.menu-open #membership.is-visible {
 	margin-top: auto;
 	color: var(--gold);
 	font-weight: 700;
+}
+
+.site-footer {
+	padding: 1.5rem 1.25rem 2.5rem;
+	border-top: 1px solid rgba(232, 184, 75, 0.2);
+	background: rgba(10, 9, 8, 0.92);
+}
+
+.footer-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	max-width: 72rem;
+	margin: 0 auto;
+}
+
+.site-footer h3 {
+	margin: 0 0 0.35rem;
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+}
+
+.site-footer p {
+	margin: 0;
+	color: var(--muted);
+}
+
+.footer-links {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.footer-links a {
+	color: var(--ink);
+	text-decoration: none;
+	opacity: 0.85;
+}
+
+.footer-links a:hover {
+	opacity: 1;
 }
 
 /* ==================== Tokenomics status ==================== */
