@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Document metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kekius Maximus</title>
+
+    <!-- Social sharing metadata -->
+    <meta property="og:title" content="Kekius Maximus">
+    <meta property="og:description" content="Kekius Maximus is a website dedicated to memes and internet culture.">
+    <meta property="og:image" content="https://example.com/og-image.jpg">
+    <meta property="og:url" content="https://example.com">
+    <meta property="og:name" content="Kekius Maximus">
+
+    <!-- External resources -->
+    <link rel="stylesheet" href="Style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation controls -->
+    <nav class="top-bar">
+        <button class="burger" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+    </nav>
+    <!-- Burger menu links -->
+    <nav id="site-menu" class="site-menu" aria-label="Main navigation">
+        <ul>
+            <li><a href="#home" data-section="home" class="active">Home</a></li>
+            <li><a href="#about" data-section="about">About</a></li>
+            <li><a href="#marketplace" data-section="marketplace">Kekius Marketplace</a></li>
+            <li><a href="#tokenomics" data-section="tokenomics">Maximus Economy</a></li>
+            <li><a href="#membership" data-section="membership">KEK Fans Club</a></li>
+            <li><a href="#gallery" data-section="gallery">Kekius Gallery</a></li>
+            <li><a href="#contact" data-section="contact">Socials</a></li>
+        </ul>
+    </nav>
+    <!-- Main page: Home -->
+    <section id="home" class="page-section">
+        <div class="home-header-content">
+            <h1 class="home-header">Kekius Maximus</h1>
+            <p class="home-description">Your ultimate destination for memes and internet culture.</p>
+        </div>
+
+        <!-- Interactive 3D model -->
+        <div class="home-model-background">
+            <model-viewer id="kekius-model" src="./Kekius%20gaming.glb"
+            alt="3D Model of Kekius Maximus"
+            auto-rotate
+            camera-controls
+            disable-pan
+            disable-zoom
+            camera-orbit="0deg 90deg auto"
+            min-camera-orbit="auto 90deg auto"
+            max-camera-orbit="auto 90deg auto"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            style="width: 100%;
+            height: 500px;"
+            loading="eager"
+            >
+                <p class="model-status" id="model-loading" slot="progress-bar">Loading the Kekius model...</p>
+                <p class="model-status model-error" id="model-error">The 3D model could not be loaded.</p>
+            </model-viewer>
+        </div>
+    </section>
+
+    <!-- Content page: About -->
+    <section id="about" class="page-section">
+        <div class="section-container">
+            <h2 class="section-header">Learn About Kekius Maximus</h2>
+            <p class="section-description">Brief theory and lore of Kekius Maximus</p>
+        <div>
+            <p class="section-content">
+                <strong>Kekius Maximus</strong> is more than just a meme — it’s a celebration of internet culture and humor. 
+                Our platform is dedicated to meme enthusiasts who want to explore, share, and elevate the best of online comedy. 
+                Born from a fusion of <strong>Pepe the Frog</strong> and the legendary warrior <strong>Maximus</strong>, 
+                this meme embodies strength, satire, and the chaotic spirit of the web. It is a digital legend built from equal parts absurdity, confidence, and perfectly timed internet energy.
+             </p>
+
+            <p class="section-content">
+               The movement gained global attention when Elon Musk famously changed his X (formerly Twitter) display name to 
+               <strong>Kekius Maximus</strong> on <strong>December 31<sup>st</sup>, 2024</strong>. 
+               That single act sparked a wave of creativity, memes, and even the launch of the <em>Kekius Maximus</em> memecoin, 
+               fueled by Musk’s influence and amplified by popular celebrities. 
+               Some now call <strong>Kekius Maximus</strong> the 
+               <abbr title="THE EMPEROR OF MEMES">Emperor of Memes</abbr>, 
+               a symbol of how online humor can shape culture, finance, and fandom all at once.
+          </p>
+
+            <p class="section-content">
+                At its heart, <strong>Kekius Maximus</strong> is community driven. The story grows whenever people remix the joke, create new art, trade ideas, and add their own voice to the mythology. There is no single author of the movement — the culture is shaped by everyone who shows up and contributes to the chaos.
+            </p>
+
+            <p class="section-content">
+                The <strong>KEK</strong> spirit is playful, resilient, and impossible to keep in one box. From memes and artwork to market conversations and fan-made experiments, every contribution adds another chapter to the legend. <em>Strength through satire. Unity through the meme.</em>
+            </p>
+
+        </div>
+        </div>
+    </section> 
+
+    <!-- Content page: Marketplace -->
+    <section id="marketplace" class="page-section">
+        <div class="section-container">
+            <h2 class="section-header">Kekius Marketplace</h2>
+            <p class="section-description">Official collectibles, hype drops, and premium fan gear for the kingdom of KEK.</p>
+
+            <div class="market-grid">
+                <article class="market-card">
+                    <div class="market-visual visual-gold"></div>
+                    <div class="market-copy">
+                        <span class="card-tag">Collector Drop</span>
+                        <h3>Empire Hoodie</h3>
+                        <p>Premium heavyweight streetwear with the iconic maxims crest and meme-fueled energy.</p>
+                        <div class="market-meta">
+                            <strong>0.75 SOL</strong>
+                            <button type="button" class="primary-btn" data-social="x">Buy now</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="market-card">
+                    <div class="market-visual visual-ember"></div>
+                    <div class="market-copy">
+                        <span class="card-tag">Limited Run</span>
+                        <h3>Maximus Mug</h3>
+                        <p>For the warriors who drink chaos with their morning coffee and never lose the grin.</p>
+                        <div class="market-meta">
+                            <strong>0.18 SOL</strong>
+                            <button type="button" class="primary-btn" data-social="tg">Grab one</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="market-card">
+                    <div class="market-visual visual-silver"></div>
+                    <div class="market-copy">
+                        <span class="card-tag">Digital Mint</span>
+                        <h3>Genesis NFT Pack</h3>
+                        <p>A collectible bundle featuring mythic Kekius art and community-powered digital lore.</p>
+                        <div class="market-meta">
+                            <strong>1.25 SOL</strong>
+                            <button type="button" class="primary-btn" data-social="x">Mint now</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content page: Token economy -->
+    <section id="tokenomics" class="page-section">
+      <div class="section-container">
+        <h2 class="section-header">Maximus Economy</h2>
+        <p class="section-description">Learn about the economic system of Kekius Maximus</p>
+        <p id="tokenomics-status" class="tokenomics-status" role="status">Loading live market data...</p>
+      </div>
+
+      <div class="contract-row">
+        <p>Contract Address:</p>
+        <span id="contract" class="click-to-copy">XC78JjRHnSqaysrHiTrhR8eRngFbvX3rrHyRjWEpump</span>
+        <button id="copy-contract" type="button" class="copy-btn">Copy</button>
+     </div>
+
+            <!-- Token metrics table -->
+            <div class="tokenomics-table-wrap">
+                <table class="tokenomics-table">
+                    <caption>KEKIUS token data</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Metric</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Price</th>
+                            <td id="price">Loading...</td>
+                            <td>Live from Dexscreener</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Market Cap</th>
+                            <td id="marketcap">Loading...</td>
+                            <td>Live circulating market value</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total Supply</th>
+                            <td id="total-supply">Loading...</td>
+                            <td>CoinGecko maximum supply</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Circulating Supply</th>
+                            <td id="circulating-supply">Loading...</td>
+                            <td>CoinGecko live supply</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Holders Count</th>
+                            <td id="holders-count">Loading...</td>
+                              <td id="holders-detail">Holder data unavailable</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Token Age</th>
+                            <td id="token-age">Loading...</td>
+                            <td>Based on pair creation date</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Network</th>
+                            <td>Solana</td>
+                            <td>Blockchain network</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Launchpad</th>
+                            <td>Pump.fun</td>
+                            <td>Original launchpad</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Exchanges</th>
+                            <td>MEXC, Kraken</td>
+                            <td>$kekiius is available on MEXC and Kraken</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Live price chart -->
+            <div id="market-chart" class="market-chart" aria-label="Live KEKIUS market chart">
+                <div class="market-chart-header">
+                    <div>
+                        <p class="chart-eyebrow">Market pulse</p>
+                        <h3 class="chart-title">KEKIUS Live Chart</h3>
+                    </div>
+                    <span class="chart-source">Dexscreener</span>
+                </div>
+                <iframe
+                    id="market-chart-frame"
+                    title="Live KEKIUS price chart"
+                    loading="lazy"
+                    allow="clipboard-write"
+                    src="about:blank">
+                </iframe>
+            </div>
+</section>
+
+
+    <!-- Content page: Membership -->
+    <section id="membership" class="page-section">
+        <div class="section-container membership-container">
+            <h2 class="section-header">KEK Fan Club</h2>
+            <p class="section-description">Are you a die-hard fan of Kekius Maximus? Become part of the inner circle.</p>
+
+            <div class="membership-grid">
+                <article class="membership-card">
+                    <span class="card-tag">Tier 01</span>
+                    <h3>Early Meme Riser</h3>
+                    <p class="price">Free</p>
+                    <ul>
+                        <li>Access to community drops</li>
+                        <li>Early meme alerts</li>
+                        <li>Fan-only updates</li>
+                    </ul>
+                    <button type="button" class="primary-btn" data-social="tg">Join free</button>
+                </article>
+
+                <article class="membership-card featured-membership">
+                    <span class="card-tag">Tier 02</span>
+                    <h3>Maximus Circle</h3>
+                    <p class="price">0.5 SOL</p>
+                    <ul>
+                        <li>Private community access</li>
+                        <li>VIP drops and merch</li>
+                        <li>Priority community calls</li>
+                    </ul>
+                    <button type="button" class="primary-btn" data-social="x">Unlock VIP</button>
+                </article>
+
+                <article class="membership-card">
+                    <span class="card-tag">Tier 03</span>
+                    <h3>Imperial Holder</h3>
+                    <p class="price">Custom</p>
+                    <ul>
+                        <li>Direct fan club updates</li>
+                        <li>Exclusive event invites</li>
+                        <li>Collab / ambassador access</li>
+                    </ul>
+                    <button type="button" class="primary-btn" data-social="tg">Apply</button>
+                </article>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button type="button" class="faq-question">What is the KEK Fan Club?</button>
+                    <div class="faq-answer">
+                        <p>A community hub for loyal meme warriors who want to support the story, share memes, and stay ahead of each new drop.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question">When do new drops happen?</button>
+                    <div class="faq-answer">
+                        <p>New merch, art, and community moments are announced through the X and Telegram channels first.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-question">Can I join even if I'm new to KEK?</button>
+                    <div class="faq-answer">
+                        <p>Absolutely. The community is built for both newcomers and long-time meme legends.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Content page: Gallery -->
+    <section id="gallery" class="page-section">
+        <div class="section-container gallery-container">
+            <div class="gallery-header-row">
+                <div>
+                    <h2 class="section-header">Kekius Gallery</h2>
+                    <p class="section-description">Explore our collection of Kekius Maximus memes and artwork. The memes keep coming, they never end.</p>
+                </div>
+            </div>
+
+            <div class="gallery-filters" aria-label="Gallery filter buttons">
+                <button type="button" class="filter-btn active" data-filter="all">All</button>
+                <button type="button" class="filter-btn" data-filter="memes">Memes</button>
+                <button type="button" class="filter-btn" data-filter="art">Art</button>
+                <button type="button" class="filter-btn" data-filter="community">Community</button>
+            </div>
+
+            <div class="upload-panel">
+                <div class="upload-text">
+                    <h3>Submit to the community gallery</h3>
+                    <p>Drop your meme, artwork, or fan-made Kekius moment into the empire archive.</p>
+                </div>
+                <div class="upload-actions">
+                    <label class="upload-btn" for="community-upload">Upload image</label>
+                    <input id="community-upload" type="file" accept="image/*" />
+                </div>
+                <p id="upload-status" class="upload-status" aria-live="polite">No image uploaded yet.</p>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <article class="gallery-item" data-category="memes">
+                    <img src="./profile frame.jpg" alt="Kekius portrait meme art" />
+                </article>
+                <article class="gallery-item" data-category="art">
+                    <img src="./rectangle frame.jpg" alt="Kekius emblem artwork" />
+                </article>
+                <article class="gallery-item" data-category="community">
+                    <img src="./profile frame.jpg" alt="Community fan meme" />
+                </article>
+                <article class="gallery-item" data-category="memes">
+                    <img src="./rectangle frame.jpg" alt="Kekius meme scene" />
+                </article>
+                <article class="gallery-item" data-category="art">
+                    <img src="./profile frame.jpg" alt="Kekius abstract design" />
+                </article>
+                <article class="gallery-item" data-category="community">
+                    <img src="./rectangle frame.jpg" alt="Fan community celebration art" />
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Content page: Socials -->
+    <section id="contact" class="page-section">
+        <div class="section-container">
+            <h2 class="section-header">Socials</h2>
+            <p class="section-description">Follow the empire across the web and stay connected with the next wave of KEK energy.</p>
+
+            <div class="social-grid">
+                <a class="social-card" href="https://x.com/OG_kekius_Sol" target="_blank" rel="noreferrer">
+                    <span class="social-icon">X</span>
+                    <h3>Official X</h3>
+                    <p>Breaking news, memes, drops, and the loudest moments in the community.</p>
+                    <span class="social-link">Follow on X →</span>
+                </a>
+
+                <a class="social-card" href="https://t.me/kekius_portal_join" target="_blank" rel="noreferrer">
+                    <span class="social-icon">TG</span>
+                    <h3>Telegram Portal</h3>
+                    <p>Daily updates, community calls, and the place where the empire gathers.</p>
+                    <span class="social-link">Join Telegram →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page interactions -->
+    <script src="script.js"></script>
+</body>
+</html>

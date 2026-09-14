@@ -1,0 +1,715 @@
+/* ==================== Font and design tokens ==================== */
+@font-face {
+	font-family: 'Greek Freak';
+	src: url('fonts/Greek-Freak.ttf') format('truetype');
+}
+
+:root {
+	--ink: #f6f0dc;
+	--muted: #b9b398;
+	--gold: #e8b84b;
+	--deep-red: #5f171e;
+	--night: #100e0c;
+	--panel: rgba(30, 24, 18, 0.94);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* ==================== Page foundation ==================== */
+body {
+	min-height: 100vh;
+	margin: 0;
+	color: var(--ink);
+	background: radial-gradient(circle at 50% -10%, #5b291e 0, var(--night) 48%, #070706 100%);
+	font-family: Georgia, serif;
+}
+
+/* ==================== Burger navigation ==================== */
+.top-bar {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+	padding: 1.25rem 1.5rem;
+}
+
+.burger {
+	display: grid;
+	width: 3.25rem;
+	height: 3.25rem;
+	gap: 0.35rem;
+	place-content: center;
+	border: 1px solid var(--gold);
+	border-radius: 50%;
+	background: var(--deep-red);
+	cursor: pointer;
+}
+
+.bar {
+	width: 1.35rem;
+	height: 2px;
+	background: var(--ink);
+	transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.burger.is-open .bar:nth-child(1) { transform: translateY(0.45rem) rotate(45deg); }
+.burger.is-open .bar:nth-child(2) { opacity: 0; }
+.burger.is-open .bar:nth-child(3) { transform: translateY(-0.45rem) rotate(-45deg); }
+
+.site-menu {
+	position: fixed;
+	z-index: 9;
+	top: 0;
+	right: 0;
+	width: min(22rem, 88vw);
+	height: 100vh;
+	padding: 6rem 2rem 2rem;
+	background: var(--panel);
+	border-left: 1px solid rgba(232, 184, 75, 0.45);
+	transform: translateX(100%);
+	transition: transform 220ms ease;
+}
+
+.site-menu.is-open { transform: translateX(0); }
+
+.site-menu ul {
+	display: grid;
+	gap: 0.55rem;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.site-menu a {
+	display: block;
+	padding: 0.85rem 1rem;
+	color: var(--muted);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.05rem;
+	text-decoration: none;
+	border-left: 3px solid transparent;
+	transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.site-menu a:hover,
+.site-menu a.active {
+	color: var(--ink);
+	background: rgba(232, 184, 75, 0.1);
+	border-left-color: var(--gold);
+}
+
+/* ==================== Page sections ==================== */
+.page-section,
+#membership {
+	display: none;
+	min-height: 100vh;
+	padding: 8rem clamp(1.25rem, 6vw, 6rem) 4rem;
+}
+
+.page-section.is-visible,
+#membership.is-visible {
+	display: block;
+	animation: section-in 260ms ease both;
+	transition: filter 220ms ease, opacity 220ms ease;
+}
+
+/* Keep the open menu visually focused over the current page section. */
+body.menu-open .page-section.is-visible,
+body.menu-open #membership.is-visible {
+	filter: blur(5px);
+	opacity: 0.38;
+}
+
+#home.is-visible {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: center;
+}
+
+.home-header-content {
+	position: relative;
+	z-index: 2;
+}
+
+.home-model-background {
+	position: relative;
+	z-index: 0;
+	width: min(100%, 72rem);
+	aspect-ratio: 16 / 9;
+	height: auto;
+	margin-top: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	border: 1px solid rgba(232, 184, 75, 0.4);
+	border-radius: 1.25rem;
+	background-image: linear-gradient(rgba(16, 14, 12, 0.5), rgba(16, 14, 12, 0.72)), url('./Home%20game%20background.jpg');
+	background-position: center;
+	background-size: cover;
+	box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.35);
+	pointer-events: auto;
+}
+
+.home-model-background model-viewer {
+	width: 100% !important;
+	height: 100% !important;
+	opacity: 1;
+}
+
+.home-header,
+.section-header {
+	margin: 0 0 0.8rem;
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	letter-spacing: 0.04em;
+}
+
+.home-header { font-size: clamp(2.6rem, 8vw, 6rem); }
+.section-header { font-size: clamp(2rem, 5vw, 4rem); }
+
+.home-description,
+.section-description {
+	color: var(--muted);
+	font-size: 1.15rem;
+}
+
+.section-container {
+	max-width: 58rem;
+	margin: 0 auto;
+}
+
+/* ==================== Market cards ==================== */
+.market-grid,
+.membership-grid,
+.social-grid {
+	display: grid;
+	gap: 1.5rem;
+	margin-top: 2rem;
+}
+
+.market-grid {
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.membership-grid {
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.social-grid {
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.market-card,
+.membership-card,
+.social-card {
+	position: relative;
+	overflow: hidden;
+	border: 1px solid rgba(232, 184, 75, 0.3);
+	border-radius: 1.25rem;
+	background: rgba(23, 18, 13, 0.92);
+	box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.18);
+}
+
+.market-card,
+.membership-card {
+	display: flex;
+	flex-direction: column;
+}
+
+.market-copy,
+.membership-card {
+	padding: 1.25rem;
+}
+
+.market-visual {
+	height: 11rem;
+	background-size: cover;
+	background-position: center;
+	border-bottom: 1px solid rgba(232, 184, 75, 0.28);
+}
+
+.visual-gold {
+	background: linear-gradient(135deg, rgba(232, 184, 75, 0.9), rgba(98, 68, 20, 0.7)), url('./profile frame.jpg') center/cover no-repeat;
+}
+
+.visual-ember {
+	background: linear-gradient(135deg, rgba(224, 116, 74, 0.9), rgba(66, 25, 18, 0.8)), url('./rectangle frame.jpg') center/cover no-repeat;
+}
+
+.visual-silver {
+	background: linear-gradient(135deg, rgba(179, 184, 191, 0.8), rgba(32, 31, 42, 0.82)), url('./profile frame.jpg') center/cover no-repeat;
+}
+
+.card-tag {
+	display: inline-flex;
+	padding: 0.38rem 0.7rem;
+	border: 1px solid rgba(232, 184, 75, 0.4);
+	border-radius: 999px;
+	color: var(--gold);
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.market-copy h3,
+.membership-card h3,
+.social-card h3 {
+	margin: 1rem 0 0.6rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+}
+
+.market-copy p,
+.membership-card li,
+.social-card p,
+.faq-answer p {
+	color: var(--muted);
+	line-height: 1.6;
+}
+
+.market-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 1.25rem;
+}
+
+.market-meta strong,
+.price {
+	color: var(--gold);
+	font-size: 1.15rem;
+}
+
+.primary-btn,
+.filter-btn,
+.faq-question {
+	appearance: none;
+	border: 1px solid rgba(232, 184, 75, 0.4);
+	border-radius: 999px;
+	background: rgba(232, 184, 75, 0.08);
+	color: var(--ink);
+	font: inherit;
+	cursor: pointer;
+	transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.primary-btn {
+	padding: 0.72rem 1.1rem;
+}
+
+.primary-btn:hover,
+.filter-btn:hover,
+.faq-question:hover {
+	transform: translateY(-1px);
+	border-color: rgba(232, 184, 75, 0.8);
+}
+
+.membership-card {
+	min-height: 100%;
+}
+
+.membership-card ul {
+	padding-left: 1.1rem;
+	margin: 1rem 0 1.3rem;
+}
+
+.featured-membership {
+	border-color: rgba(232, 184, 75, 0.75);
+	background: linear-gradient(180deg, rgba(94, 59, 21, 0.4), rgba(23, 18, 13, 0.96));
+}
+
+.faq-list {
+	display: grid;
+	gap: 0.9rem;
+	margin-top: 3rem;
+}
+
+.faq-item {
+	border: 1px solid rgba(232, 184, 75, 0.22);
+	border-radius: 1rem;
+	background: rgba(23, 18, 13, 0.72);
+}
+
+.faq-question {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 1rem 1.15rem;
+	text-align: left;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.05rem;
+}
+
+.faq-question::after {
+	content: '+';
+	color: var(--gold);
+	font-size: 1.3rem;
+}
+
+.faq-item.active .faq-question::after {
+	content: '−';
+}
+
+.faq-answer {
+	display: none;
+	padding: 0 1.15rem 1.1rem;
+}
+
+.faq-item.active .faq-answer {
+	display: block;
+}
+
+.gallery-container {
+	max-width: 72rem;
+}
+
+.gallery-header-row {
+	margin-bottom: 1.5rem;
+}
+
+.gallery-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin: 1rem 0 1.5rem;
+}
+
+.filter-btn {
+	padding: 0.7rem 1rem;
+}
+
+.filter-btn.active {
+	background: rgba(232, 184, 75, 0.2);
+	border-color: rgba(232, 184, 75, 0.9);
+}
+
+.upload-panel {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	padding: 1.2rem 1.3rem;
+	margin-bottom: 1.4rem;
+	border: 1px solid rgba(232, 184, 75, 0.25);
+	border-radius: 1rem;
+	background: rgba(19, 16, 12, 0.8);
+}
+
+.upload-text h3 {
+	margin: 0 0 0.2rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+}
+
+.upload-text p,
+.upload-status {
+	margin: 0;
+	color: var(--muted);
+	line-height: 1.5;
+}
+
+.upload-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+}
+
+.upload-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.8rem 1.1rem;
+	border: 1px solid rgba(232, 184, 75, 0.55);
+	border-radius: 999px;
+	background: rgba(232, 184, 75, 0.1);
+	color: var(--ink);
+	cursor: pointer;
+	font-weight: 700;
+}
+
+#community-upload {
+	display: none;
+}
+
+.gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 1rem;
+}
+
+.gallery-item {
+	overflow: hidden;
+	border: 1px solid rgba(232, 184, 75, 0.2);
+	border-radius: 1rem;
+	background: rgba(21, 17, 12, 0.9);
+	transform: scale(1);
+	transition: transform 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+
+.gallery-item img {
+	display: block;
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+}
+
+.gallery-item:hover {
+	transform: translateY(-3px);
+	border-color: rgba(232, 184, 75, 0.7);
+}
+
+.gallery-item.is-hidden {
+	display: none;
+}
+
+.social-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.5rem 1.2rem;
+	text-decoration: none;
+	color: var(--ink);
+}
+
+.social-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 3rem;
+	height: 3rem;
+	border: 1px solid rgba(232, 184, 75, 0.5);
+	border-radius: 50%;
+	background: rgba(232, 184, 75, 0.08);
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.2rem;
+}
+
+.social-link {
+	margin-top: auto;
+	color: var(--gold);
+	font-weight: 700;
+}
+
+/* ==================== Tokenomics status ==================== */
+.tokenomics-status {
+	margin: 0.75rem 0 0;
+	color: var(--muted);
+	font-size: 0.9rem;
+}
+
+.contract-row {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	max-width: 72rem;
+	margin: 1.5rem auto 0;
+	padding: 0 1rem;
+}
+
+.contract-row p {
+	margin: 0;
+	color: var(--muted);
+}
+
+.click-to-copy {
+	padding: 0.7rem 0.9rem;
+	border: 1px solid rgba(232, 184, 75, 0.28);
+	border-radius: 0.7rem;
+	background: rgba(17, 14, 11, 0.8);
+	font-size: 0.92rem;
+	word-break: break-all;
+}
+
+.copy-btn {
+	padding: 0.7rem 1rem;
+	border: 1px solid rgba(232, 184, 75, 0.45);
+	border-radius: 0.7rem;
+	background: rgba(232, 184, 75, 0.1);
+	color: var(--ink);
+	cursor: pointer;
+}
+
+/* ==================== Tokenomics data table ==================== */
+.tokenomics-table-wrap {
+	max-width: 72rem;
+	margin: 2rem auto 0;
+	overflow-x: auto;
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	border-radius: 0.75rem;
+	background: rgba(30, 24, 18, 0.72);
+}
+
+.tokenomics-table {
+	width: 100%;
+	min-width: 38rem;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.tokenomics-table caption {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.tokenomics-table th,
+.tokenomics-table td {
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid rgba(232, 184, 75, 0.14);
+}
+
+.tokenomics-table thead th {
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 0.85rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.tokenomics-table tbody th {
+	color: var(--ink);
+	font-weight: normal;
+}
+
+.tokenomics-table tbody td {
+	color: var(--muted);
+}
+
+.tokenomics-table tbody td:nth-child(2) {
+	color: var(--ink);
+	font-weight: bold;
+}
+
+.tokenomics-table tbody tr:last-child th,
+.tokenomics-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.tokenomics-table tbody tr:hover {
+	background: rgba(232, 184, 75, 0.06);
+}
+
+/* ==================== Live market chart ==================== */
+.market-chart {
+	display: none;
+	max-width: 72rem;
+	margin: 2.5rem auto 0;
+	overflow: hidden;
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	border-radius: 0.75rem;
+	background: rgba(16, 14, 12, 0.8);
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+}
+
+.market-chart.is-ready {
+	display: block;
+}
+
+.market-chart-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.25rem 1.5rem;
+	border-bottom: 1px solid rgba(232, 184, 75, 0.2);
+}
+
+.chart-eyebrow {
+	margin: 0 0 0.25rem;
+	color: var(--gold);
+	font-size: 0.7rem;
+	font-weight: bold;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.chart-title {
+	margin: 0;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.4rem;
+}
+
+.chart-source {
+	padding: 0.35rem 0.65rem;
+	border: 1px solid rgba(232, 184, 75, 0.4);
+	border-radius: 999px;
+	color: var(--muted);
+	font-size: 0.75rem;
+}
+
+.market-chart iframe {
+	display: block;
+	width: 100%;
+	height: 31rem;
+	border: 0;
+}
+
+/* ==================== 3D model status messages ==================== */
+.model-status {
+	margin: 1rem;
+	color: var(--muted);
+	text-align: center;
+}
+
+.model-status.is-hidden {
+	display: none;
+}
+
+.model-error {
+	display: none;
+	color: #f08b72;
+}
+
+.model-error.is-visible {
+	display: block;
+}
+
+/* ==================== Motion and accessibility ==================== */
+@keyframes section-in {
+	from { opacity: 0; transform: translateY(0.75rem); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}
+
+@media (max-width: 600px) {
+	.market-chart-header {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.market-chart iframe {
+		height: 25rem;
+	}
+}
