@@ -4,6 +4,16 @@
 	src: url('fonts/Greek-Freak.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'Capitalis TypOasis';
+	src: url('fonts/CapitalisTypOasis.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Marav';
+	src: url('fonts/Marav2.ttf') format('truetype');
+}
+
 :root {
 	--ink: #f6f0dc;
 	--muted: #b9b398;
@@ -24,6 +34,10 @@ body {
 	color: var(--ink);
 	background: radial-gradient(circle at 50% -10%, #5b291e 0, var(--night) 48%, #070706 100%);
 	font-family: Georgia, serif;
+}
+
+.is-hidden {
+	display: none !important;
 }
 
 /* ==================== Burger navigation ==================== */
@@ -164,7 +178,7 @@ body.menu-open #membership.is-visible {
 .quote-strip p {
 	margin: 0;
 	color: var(--ink);
-	font-family: 'Greek Freak', Georgia, serif;
+	font-family: 'Marav', Georgia, serif;
 	font-size: clamp(1rem, 2vw, 1.35rem);
 	line-height: 1.5;
 }
@@ -238,6 +252,17 @@ body.menu-open #membership.is-visible {
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+.marketplace-coming-soon {
+	margin: 4rem 0 0;
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: clamp(2.5rem, 8vw, 6rem);
+	line-height: 1;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 0 1.5rem rgba(232, 184, 75, 0.3);
+}
+
 .membership-grid {
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
@@ -265,7 +290,7 @@ body.menu-open #membership.is-visible {
 
 .market-copy,
 .membership-card {
-	padding: 1.25rem;
+	padding: 1.35rem;
 }
 
 .market-visual {
@@ -276,15 +301,15 @@ body.menu-open #membership.is-visible {
 }
 
 .visual-gold {
-	background: linear-gradient(135deg, rgba(232, 184, 75, 0.9), rgba(98, 68, 20, 0.7)), url('./profile frame.jpg') center/cover no-repeat;
+	background: linear-gradient(135deg, rgba(232, 184, 75, 0.9), rgba(98, 68, 20, 0.7)), url('./profile-frame.svg') center/cover no-repeat;
 }
 
 .visual-ember {
-	background: linear-gradient(135deg, rgba(224, 116, 74, 0.9), rgba(66, 25, 18, 0.8)), url('./rectangle frame.jpg') center/cover no-repeat;
+	background: linear-gradient(135deg, rgba(224, 116, 74, 0.9), rgba(66, 25, 18, 0.8)), url('./rectangle-frame.svg') center/cover no-repeat;
 }
 
 .visual-silver {
-	background: linear-gradient(135deg, rgba(179, 184, 191, 0.8), rgba(32, 31, 42, 0.82)), url('./profile frame.jpg') center/cover no-repeat;
+	background: linear-gradient(135deg, rgba(179, 184, 191, 0.8), rgba(32, 31, 42, 0.82)), url('./profile-frame.svg') center/cover no-repeat;
 }
 
 .card-tag {
@@ -293,6 +318,7 @@ body.menu-open #membership.is-visible {
 	border: 1px solid rgba(232, 184, 75, 0.4);
 	border-radius: 999px;
 	color: var(--gold);
+	font-family: 'Capitalis TypOasis', 'Greek Freak', Georgia, serif;
 	font-size: 0.68rem;
 	font-weight: 700;
 	letter-spacing: 0.08em;
@@ -353,13 +379,63 @@ body.menu-open #membership.is-visible {
 	border-color: rgba(232, 184, 75, 0.8);
 }
 
+.marketplace-btn {
+	position: relative;
+	opacity: 0.62;
+	cursor: help;
+}
+
+.marketplace-btn:hover,
+.marketplace-btn:focus-visible {
+	opacity: 1;
+}
+
+.marketplace-btn::after {
+	position: absolute;
+	bottom: calc(100% + 0.65rem);
+	left: 50%;
+	padding: 0.45rem 0.7rem;
+	border: 1px solid rgba(232, 184, 75, 0.45);
+	border-radius: 0.45rem;
+	background: var(--panel);
+	color: var(--gold);
+	content: attr(data-coming-soon);
+	font-size: 0.75rem;
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-50%, 0.35rem);
+	transition: opacity 160ms ease, transform 160ms ease;
+	white-space: nowrap;
+}
+
+.marketplace-btn:hover::after,
+.marketplace-btn:focus-visible::after {
+	opacity: 1;
+	transform: translate(-50%, 0);
+}
+
 .membership-card {
 	min-height: 100%;
+	gap: 0.25rem;
+}
+
+.membership-card h3 {
+	margin: 0.9rem 0 0.55rem;
+	font-size: clamp(1.35rem, 2vw, 1.8rem);
 }
 
 .membership-card ul {
-	padding-left: 1.1rem;
+	padding-left: 1.15rem;
 	margin: 1rem 0 1.3rem;
+	font-size: 0.96rem;
+}
+
+.membership-card li + li {
+	margin-top: 0.45rem;
+}
+
+.price {
+	font-size: 1.35rem;
 }
 
 .featured-membership {
@@ -721,6 +797,7 @@ body.menu-open #membership.is-visible {
 .chart-eyebrow {
 	margin: 0 0 0.25rem;
 	color: var(--gold);
+	font-family: 'Capitalis TypOasis', 'Greek Freak', Georgia, serif;
 	font-size: 0.7rem;
 	font-weight: bold;
 	letter-spacing: 0.16em;
@@ -793,3 +870,936 @@ body.menu-open #membership.is-visible {
 		height: 25rem;
 	}
 }
+
+/* ==================== VIP Solana Payment Modal ==================== */
+dialog.payment-modal:not([open]) {
+	display: none;
+}
+
+dialog.payment-modal {
+	position: fixed;
+	inset: 0;
+	margin: auto;
+	padding: 0;
+	max-width: min(92vw, 30rem);
+	width: 100%;
+	border: 1px solid rgba(232, 184, 75, 0.45);
+	border-radius: 1.5rem;
+	background: radial-gradient(circle at 50% 0%, #3a191b 0%, rgba(22, 17, 13, 0.98) 75%);
+	color: var(--ink);
+	box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.8), 0 0 45px rgba(232, 184, 75, 0.16);
+	overflow: hidden;
+}
+
+dialog.payment-modal::backdrop {
+	background: rgba(8, 7, 6, 0.82);
+	backdrop-filter: blur(6px);
+}
+
+.modal-content-card {
+	position: relative;
+	padding: 2rem 1.6rem;
+}
+
+.modal-close-btn {
+	position: absolute;
+	top: 0.85rem;
+	right: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.2rem;
+	height: 2.2rem;
+	background: rgba(232, 184, 75, 0.08);
+	border: 1px solid rgba(232, 184, 75, 0.3);
+	border-radius: 50%;
+	color: var(--muted);
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.modal-close-btn:hover {
+	color: var(--gold);
+	border-color: var(--gold);
+	background: rgba(232, 184, 75, 0.16);
+}
+
+.modal-header {
+	margin-bottom: 1.25rem;
+	text-align: left;
+}
+
+.modal-header h3 {
+	margin: 0.45rem 0 0.25rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.45rem;
+}
+
+.modal-desc {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.92rem;
+	line-height: 1.5;
+}
+
+.modal-desc strong {
+	color: var(--gold);
+}
+
+/* Modal tab buttons */
+.payment-tabs {
+	display: flex;
+	gap: 0.5rem;
+	border-bottom: 1px solid rgba(232, 184, 75, 0.25);
+	margin-bottom: 1.25rem;
+}
+
+.payment-tab {
+	appearance: none;
+	background: none;
+	border: none;
+	border-bottom: 2px solid transparent;
+	padding: 0.65rem 0.9rem;
+	color: var(--muted);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: color 150ms ease, border-color 150ms ease;
+}
+
+.payment-tab:hover {
+	color: var(--ink);
+}
+
+.payment-tab.active {
+	color: var(--gold);
+	border-bottom-color: var(--gold);
+}
+
+.tab-panel.is-hidden {
+	display: none;
+}
+
+/* Tab 1: Wallet connect */
+.wallet-info-card {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 1.15rem;
+	border: 1px solid rgba(232, 184, 75, 0.28);
+	border-radius: 1rem;
+	background: rgba(232, 184, 75, 0.06);
+	margin-bottom: 1rem;
+}
+
+.sol-badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: 50%;
+	background: linear-gradient(135deg, rgba(232, 184, 75, 0.3), rgba(95, 23, 30, 0.4));
+	border: 1px solid rgba(232, 184, 75, 0.5);
+	color: var(--gold);
+	font-size: 1.35rem;
+	font-weight: 700;
+	flex-shrink: 0;
+}
+
+.wallet-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+
+.wallet-amount {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: var(--gold);
+}
+
+.wallet-status-label {
+	font-size: 0.85rem;
+	color: var(--muted);
+}
+
+.pay-sol-btn {
+	width: 100%;
+	padding: 0.88rem;
+	font-weight: 700;
+	font-size: 1.05rem;
+	background: linear-gradient(135deg, #e8b84b 0%, #c9932b 100%);
+	color: #120e0b;
+	border: 1px solid var(--gold);
+	box-shadow: 0 4px 18px rgba(232, 184, 75, 0.35);
+}
+
+.pay-sol-btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 24px rgba(232, 184, 75, 0.55);
+	color: #0b0907;
+}
+
+.wallet-instruction-note {
+	margin: 0.75rem 0 0;
+	font-size: 0.8rem;
+	color: var(--muted);
+	text-align: center;
+	line-height: 1.4;
+}
+
+/* Tab 2: QR & Manual transfer */
+.qr-container {
+	text-align: center;
+	margin-bottom: 1.2rem;
+}
+
+.qr-canvas-box {
+	display: inline-block;
+	background: #ffffff;
+	padding: 0.65rem;
+	border-radius: 0.75rem;
+	border: 2px solid var(--gold);
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+}
+
+.qr-canvas-box svg,
+.qr-canvas-box img {
+	display: block;
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+}
+
+.qr-caption {
+	margin: 0.45rem 0 0;
+	font-size: 0.82rem;
+	color: var(--muted);
+}
+
+.pay-field-group,
+.verify-field-group {
+	margin-bottom: 0.95rem;
+	text-align: left;
+}
+
+.address-audit-note {
+	margin: 0.5rem 0 0;
+	font-size: 0.78rem;
+	color: var(--muted);
+	line-height: 1.4;
+}
+
+.address-audit-note a {
+	color: var(--gold);
+	text-decoration: underline;
+}
+
+.pay-field-label {
+	display: block;
+	font-size: 0.83rem;
+	color: var(--muted);
+	margin-bottom: 0.35rem;
+}
+
+.pay-field-label strong {
+	color: var(--gold);
+}
+
+.pay-input-with-action {
+	display: flex;
+	gap: 0.45rem;
+}
+
+.address-input,
+.signature-input {
+	flex: 1;
+	min-width: 0;
+	padding: 0.6rem 0.75rem;
+	background: rgba(12, 10, 8, 0.85);
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	border-radius: 0.6rem;
+	color: var(--ink);
+	font-family: monospace;
+	font-size: 0.82rem;
+	outline: none;
+	transition: border-color 150ms ease;
+}
+
+.address-input:focus,
+.signature-input:focus {
+	border-color: var(--gold);
+}
+
+.copy-address-btn,
+.verify-signature-btn {
+	flex-shrink: 0;
+	padding: 0.6rem 0.95rem;
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+
+/* Status message and spinner */
+.payment-status-box {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.75rem 0.9rem;
+	margin-top: 1rem;
+	border-radius: 0.65rem;
+	font-size: 0.86rem;
+	background: rgba(232, 184, 75, 0.1);
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	color: var(--ink);
+	line-height: 1.4;
+}
+
+.payment-status-box.is-error {
+	background: rgba(185, 45, 45, 0.15);
+	border-color: rgba(235, 87, 87, 0.5);
+	color: #ffb8b8;
+}
+
+.payment-status-box.is-success {
+	background: rgba(46, 125, 50, 0.2);
+	border-color: rgba(102, 187, 106, 0.5);
+	color: #c8e6c9;
+}
+
+.status-indicator {
+	width: 1rem;
+	height: 1rem;
+	border: 2px solid rgba(232, 184, 75, 0.3);
+	border-top-color: var(--gold);
+	border-radius: 50%;
+	animation: spin-indicator 700ms linear infinite;
+	flex-shrink: 0;
+}
+
+.payment-status-box.is-error .status-indicator {
+	border-color: rgba(235, 87, 87, 0.3);
+	border-top-color: #eb5757;
+}
+
+@keyframes spin-indicator {
+	to { transform: rotate(360deg); }
+}
+
+/* VIP Revealed State in Modal */
+.modal-flow.is-hidden {
+	display: none;
+}
+
+#vip-success-flow {
+	text-align: center;
+	padding: 0.75rem 0;
+}
+
+.vip-success-badge {
+	font-size: 3.2rem;
+	margin-bottom: 0.4rem;
+	filter: drop-shadow(0 0 16px rgba(232, 184, 75, 0.6));
+}
+
+#vip-success-flow h3 {
+	margin: 0.6rem 0 0.35rem;
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.55rem;
+}
+
+.vip-reveal-box {
+	margin: 1.4rem 0;
+	padding: 1.25rem 1rem;
+	border: 1px solid rgba(232, 184, 75, 0.45);
+	border-radius: 1rem;
+	background: rgba(232, 184, 75, 0.08);
+}
+
+.enter-bot-btn,
+.vip-access-link-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 0.88rem 1.2rem;
+	background: linear-gradient(135deg, #e8b84b 0%, #ffda79 100%);
+	color: #120d06 !important;
+	font-weight: 800;
+	font-size: 1.08rem;
+	text-decoration: none;
+	border-radius: 999px;
+	border: 1px solid #ffd572;
+	box-shadow: 0 0 24px rgba(232, 184, 75, 0.5);
+	transition: transform 160ms ease, box-shadow 160ms ease;
+	cursor: pointer;
+}
+
+.enter-bot-btn:hover,
+.vip-access-link-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 0 35px rgba(232, 184, 75, 0.75);
+}
+
+.vip-link-subtext {
+	margin: 0.8rem 0 0;
+	font-size: 0.82rem;
+	color: var(--muted);
+	word-break: break-all;
+}
+
+.vip-link-subtext a {
+	color: var(--gold);
+	text-decoration: underline;
+}
+
+.finish-vip-btn {
+	margin-top: 0.25rem;
+	padding: 0.65rem 1.4rem;
+}
+
+.congrats-subtext {
+	margin: 0 0 0.9rem;
+	font-size: 0.92rem;
+	color: var(--ink);
+}
+
+/* Tier 02 Card UI enhancements */
+.vip-action-wrapper {
+	margin-top: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.65rem;
+}
+
+.vip-action-btn {
+	width: 100%;
+}
+
+.featured-membership .vip-action-btn {
+	background: linear-gradient(135deg, rgba(232, 184, 75, 0.22) 0%, rgba(95, 23, 30, 0.35) 100%);
+	border: 1px solid rgba(232, 184, 75, 0.7);
+	color: var(--gold);
+	font-weight: 700;
+	font-size: 1.02rem;
+	box-shadow: 0 0 14px rgba(232, 184, 75, 0.2);
+}
+
+.featured-membership .vip-action-btn:hover {
+	background: rgba(232, 184, 75, 0.32);
+	border-color: var(--gold);
+	box-shadow: 0 0 22px rgba(232, 184, 75, 0.45);
+	transform: translateY(-2px);
+}
+
+.vip-access-link-btn {
+	width: 100%;
+}
+
+.vip-unlocked-notice {
+	margin-top: 0.75rem;
+	font-size: 0.76rem;
+	color: var(--gold);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+}
+
+#tier-vip-card.vip-is-unlocked {
+	border-color: rgba(232, 184, 75, 0.9);
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4), 0 0 32px rgba(232, 184, 75, 0.25);
+}
+
+/* ==================== Maximus Economy Live RPC Sync Bar ==================== */
+.tokenomics-live-bar {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.4rem 0.9rem;
+	margin-top: 0.6rem;
+	border: 1px solid rgba(76, 175, 80, 0.35);
+	border-radius: 999px;
+	background: rgba(46, 125, 50, 0.12);
+}
+
+.rpc-pulse-dot {
+	width: 0.65rem;
+	height: 0.65rem;
+	border-radius: 50%;
+	background-color: #4caf50;
+	box-shadow: 0 0 8px #4caf50;
+	animation: rpc-pulse 1.8s ease-in-out infinite;
+	flex-shrink: 0;
+}
+
+@keyframes rpc-pulse {
+	0%, 100% { transform: scale(0.9); opacity: 0.75; box-shadow: 0 0 4px #4caf50; }
+	50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 12px #66bb6a; }
+}
+
+.tokenomics-live-bar .tokenomics-status {
+	margin: 0;
+	color: #c8e6c9;
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+/* ==================== KEK Fan Status & Rank Checker ==================== */
+.fan-status-section {
+	margin-top: 3.5rem;
+	padding: 2.2rem 1.8rem;
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	border-radius: 1.5rem;
+	background: radial-gradient(circle at 50% 0%, rgba(95, 23, 30, 0.25) 0%, rgba(22, 17, 13, 0.96) 75%);
+	box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.4), 0 0 35px rgba(232, 184, 75, 0.08);
+}
+
+.status-checker-header {
+	text-align: center;
+	max-width: 44rem;
+	margin: 0 auto 1.6rem;
+}
+
+.status-checker-title {
+	margin: 0.6rem 0 0.45rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.7rem;
+}
+
+.status-checker-desc {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.status-checker-controls {
+	max-width: 38rem;
+	margin: 0 auto;
+}
+
+.checker-input-row {
+	display: flex;
+	gap: 0.6rem;
+	flex-wrap: wrap;
+}
+
+.checker-input {
+	flex: 1;
+	min-width: min(100%, 18rem);
+	padding: 0.8rem 1.1rem;
+	background: rgba(12, 10, 8, 0.88);
+	border: 1px solid rgba(232, 184, 75, 0.4);
+	border-radius: 999px;
+	color: var(--ink);
+	font-family: monospace;
+	font-size: 0.9rem;
+	outline: none;
+	transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.checker-input:focus {
+	border-color: var(--gold);
+	box-shadow: 0 0 16px rgba(232, 184, 75, 0.35);
+}
+
+.checker-btn {
+	padding: 0.8rem 1.4rem;
+	font-weight: 700;
+	background: linear-gradient(135deg, #e8b84b 0%, #c9932b 100%);
+	color: #120e0b;
+	border: 1px solid var(--gold);
+	flex-shrink: 0;
+}
+
+.checker-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 0 20px rgba(232, 184, 75, 0.5);
+}
+
+.checker-quick-actions {
+	display: flex;
+	justify-content: center;
+	margin-top: 0.85rem;
+}
+
+.checker-auto-btn {
+	appearance: none;
+	background: none;
+	border: 1px dashed rgba(232, 184, 75, 0.45);
+	border-radius: 999px;
+	padding: 0.45rem 1rem;
+	color: var(--gold);
+	font-size: 0.84rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 160ms ease;
+}
+
+.checker-auto-btn:hover {
+	background: rgba(232, 184, 75, 0.12);
+	border-color: var(--gold);
+	transform: translateY(-1px);
+}
+
+/* Status checking loader */
+.checker-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	padding: 1rem;
+	border-radius: 1rem;
+	background: rgba(232, 184, 75, 0.08);
+	border: 1px solid rgba(232, 184, 75, 0.25);
+	color: var(--ink);
+	font-size: 0.92rem;
+}
+
+/* Rank Found Card */
+.fan-result-card {
+	max-width: 38rem;
+	margin: 1.8rem auto 0;
+	padding: 1.75rem;
+	border: 1px solid rgba(232, 184, 75, 0.55);
+	border-radius: 1.25rem;
+	background: linear-gradient(180deg, rgba(94, 59, 21, 0.35) 0%, rgba(20, 16, 12, 0.95) 100%);
+	box-shadow: 0 0 35px rgba(232, 184, 75, 0.2);
+	animation: section-in 240ms ease-out;
+}
+
+.application-modal {
+	width: min(38rem, calc(100% - 2rem));
+	max-width: 38rem;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--ink);
+}
+
+.application-modal::backdrop {
+	background: rgba(0, 0, 0, 0.78);
+	backdrop-filter: blur(4px);
+}
+
+.fan-application {
+	position: relative;
+	padding: 1.75rem;
+	border: 1px solid rgba(232, 184, 75, 0.35);
+	border-radius: 1.25rem;
+	background: rgba(20, 16, 12, 0.88);
+}
+
+.fan-application .modal-close-btn {
+	position: absolute;
+	top: 0.8rem;
+	right: 0.9rem;
+}
+
+.application-header h3 {
+	margin: 0.8rem 0 0.45rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.45rem;
+}
+
+.application-header p,
+.application-status {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.9rem;
+	line-height: 1.55;
+}
+
+.application-fields {
+	display: grid;
+	gap: 0.55rem;
+	margin: 1.4rem 0;
+}
+
+.application-fields label:not(.application-checkbox) {
+	color: var(--ink);
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+
+.application-checkbox {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+	margin-top: 0.5rem;
+	color: var(--muted);
+	font-size: 0.9rem;
+	line-height: 1.45;
+}
+
+.application-checkbox input {
+	accent-color: var(--gold);
+	margin-top: 0.2rem;
+}
+
+.application-submit {
+	width: 100%;
+	margin-bottom: 0.75rem;
+}
+
+.application-submit:disabled {
+	cursor: not-allowed;
+	opacity: 0.45;
+	transform: none;
+}
+
+.application-status.is-success {
+	color: #c8e6c9;
+}
+
+.application-status.is-warning {
+	color: #ffd180;
+}
+
+.rank-badge-row {
+	display: flex;
+	align-items: center;
+	gap: 1.1rem;
+	margin-bottom: 1.5rem;
+	border-bottom: 1px solid rgba(232, 184, 75, 0.25);
+	padding-bottom: 1.2rem;
+}
+
+.rank-icon {
+	font-size: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 4.2rem;
+	height: 4.2rem;
+	border-radius: 50%;
+	background: linear-gradient(135deg, rgba(232, 184, 75, 0.25), rgba(95, 23, 30, 0.35));
+	border: 2px solid var(--gold);
+	box-shadow: 0 0 20px rgba(232, 184, 75, 0.35);
+	flex-shrink: 0;
+}
+
+.rank-title-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+}
+
+.rank-tag {
+	align-self: flex-start;
+}
+
+.rank-name {
+	margin: 0;
+	color: var(--gold);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.55rem;
+}
+
+.rank-metrics-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	gap: 1rem;
+	margin-bottom: 1.25rem;
+}
+
+.metric-block {
+	padding: 1rem 1.15rem;
+	border: 1px solid rgba(232, 184, 75, 0.25);
+	border-radius: 0.9rem;
+	background: rgba(10, 8, 7, 0.7);
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.metric-label {
+	font-size: 0.8rem;
+	color: var(--muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.metric-value {
+	font-size: 1.35rem;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+}
+
+.metric-sub {
+	font-size: 0.84rem;
+	color: var(--gold);
+	font-weight: 600;
+}
+
+.rank-decree {
+	padding: 0.9rem 1.1rem;
+	border-left: 3px solid var(--gold);
+	background: rgba(232, 184, 75, 0.06);
+	border-radius: 0 0.6rem 0.6rem 0;
+}
+
+.rank-decree p {
+	margin: 0;
+	font-style: italic;
+	font-size: 0.88rem;
+	color: var(--ink);
+	line-height: 1.5;
+}
+
+/* Plebeian 0-Token Callout Card */
+.fan-plebeian-card {
+	max-width: 38rem;
+	margin: 1.8rem auto 0;
+	padding: 1.75rem;
+	border: 1px solid rgba(235, 87, 87, 0.6);
+	border-radius: 1.25rem;
+	background: radial-gradient(circle at 50% 0%, rgba(185, 35, 45, 0.3) 0%, rgba(22, 14, 14, 0.96) 80%);
+	box-shadow: 0 0 35px rgba(235, 87, 87, 0.25);
+	animation: section-in 240ms ease-out;
+}
+
+.fan-error-card {
+	max-width: 38rem;
+	margin: 1.8rem auto 0;
+	padding: 1.75rem;
+	border: 1px solid rgba(232, 184, 75, 0.45);
+	border-radius: 1.25rem;
+	background: radial-gradient(circle at 50% 0%, rgba(95, 71, 18, 0.3) 0%, rgba(22, 18, 14, 0.96) 80%);
+	box-shadow: 0 0 35px rgba(232, 184, 75, 0.15);
+	animation: section-in 240ms ease-out;
+	text-align: center;
+}
+
+.error-tag {
+	border-color: rgba(232, 184, 75, 0.6);
+	color: var(--gold);
+	background: rgba(232, 184, 75, 0.12);
+	display: inline-block;
+	margin-bottom: 0.25rem;
+}
+
+.error-title {
+	margin: 0;
+	color: var(--ink);
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.3rem;
+}
+
+.error-message {
+	margin: 0 0 1.1rem;
+	color: var(--muted);
+	line-height: 1.6;
+	font-size: 0.92rem;
+}
+
+.checker-input-error {
+	margin: 0.6rem 0 0;
+	color: #ff9898;
+	font-size: 0.85rem;
+}
+
+.fan-error-card .plebeian-header {
+	justify-content: center;
+	text-align: left;
+}
+
+.plebeian-header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1.1rem;
+}
+
+.plebeian-icon {
+	font-size: 2.6rem;
+	flex-shrink: 0;
+}
+
+.plebeian-tag {
+	border-color: rgba(235, 87, 87, 0.7);
+	color: #ff9898;
+	background: rgba(235, 87, 87, 0.15);
+	display: inline-block;
+	margin-bottom: 0.25rem;
+}
+
+.plebeian-title {
+	margin: 0;
+	color: #ff7373;
+	font-family: 'Greek Freak', Georgia, serif;
+	font-size: 1.45rem;
+}
+
+.plebeian-message {
+	margin: 0 0 1rem;
+	color: #ffcccc;
+	line-height: 1.6;
+	font-size: 0.92rem;
+}
+
+.plebeian-callout-action {
+	margin: 0 0 1.1rem;
+	color: var(--ink);
+	font-weight: 700;
+	font-size: 0.95rem;
+}
+
+.plebeian-buy-row {
+	display: flex;
+	gap: 0.8rem;
+	flex-wrap: wrap;
+}
+
+.plebeian-buy-btn {
+	flex: 1;
+	min-width: min(100%, 14rem);
+	padding: 0.85rem 1.2rem;
+	background: linear-gradient(135deg, #e8b84b 0%, #d49826 100%);
+	color: #120e0b !important;
+	font-weight: 800;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 999px;
+	box-shadow: 0 0 20px rgba(232, 184, 75, 0.4);
+	transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.plebeian-buy-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 0 30px rgba(232, 184, 75, 0.7);
+}
+
+.plebeian-swap-btn {
+	flex: 1;
+	min-width: min(100%, 14rem);
+	padding: 0.85rem 1.2rem;
+	background: linear-gradient(135deg, #8a4be8 0%, #5d26d4 100%);
+	color: #ffffff !important;
+	font-weight: 800;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 999px;
+	border: 1px solid #b388ff;
+	box-shadow: 0 0 20px rgba(138, 75, 232, 0.4);
+	transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.plebeian-swap-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 0 30px rgba(138, 75, 232, 0.7);
+}
+
+

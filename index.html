@@ -134,7 +134,7 @@
                         <p>Premium heavyweight streetwear with the iconic maxims crest and meme-fueled energy.</p>
                         <div class="market-meta">
                             <strong>0.75 SOL</strong>
-                            <button type="button" class="primary-btn" data-social="x">Buy now</button>
+                            <button type="button" class="primary-btn marketplace-btn" data-coming-soon="Marketplace coming soon">Buy now</button>
                         </div>
                     </div>
                 </article>
@@ -147,7 +147,7 @@
                         <p>For the warriors who drink chaos with their morning coffee and never lose the grin.</p>
                         <div class="market-meta">
                             <strong>0.18 SOL</strong>
-                            <button type="button" class="primary-btn" data-social="tg">Grab one</button>
+                            <button type="button" class="primary-btn marketplace-btn" data-coming-soon="Marketplace coming soon">Grab one</button>
                         </div>
                     </div>
                 </article>
@@ -160,11 +160,13 @@
                         <p>A collectible bundle featuring mythic Kekius art and community-powered digital lore.</p>
                         <div class="market-meta">
                             <strong>1.25 SOL</strong>
-                            <button type="button" class="primary-btn" data-social="x">Mint now</button>
+                            <button type="button" class="primary-btn marketplace-btn" data-coming-soon="Marketplace coming soon">Mint now</button>
                         </div>
                     </div>
                 </article>
             </div>
+
+            <p class="marketplace-coming-soon">comming soon</p>
         </div>
     </section>
 
@@ -172,8 +174,11 @@
     <section id="tokenomics" class="page-section">
       <div class="section-container">
         <h2 class="section-header">Maximus Economy</h2>
-        <p class="section-description">Learn about the economic system of Kekius Maximus</p>
-        <p id="tokenomics-status" class="tokenomics-status" role="status">Loading live market data...</p>
+        <p class="section-description">Live economic system of Kekius Maximus synchronized directly with the Solana blockchain ledger.</p>
+        <div class="tokenomics-live-bar">
+            <span class="rpc-pulse-dot" id="rpc-pulse-dot"></span>
+            <p id="tokenomics-status" class="tokenomics-status" role="status">Connecting to Solana Mainnet RPC...</p>
+        </div>
       </div>
 
       <div class="contract-row">
@@ -195,49 +200,59 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Price</th>
+                            <th scope="row">Price (USD)</th>
                             <td id="price">Loading...</td>
-                            <td>Live from Dexscreener</td>
+                            <td>Live DEX aggregator pricing</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Price (SOL)</th>
+                            <td id="price-sol">Loading...</td>
+                            <td>Live on-chain Solana ratio</td>
                         </tr>
                         <tr>
                             <th scope="row">Market Cap</th>
                             <td id="marketcap">Loading...</td>
-                            <td>Live circulating market value</td>
+                            <td>Live circulating valuation</td>
                         </tr>
                         <tr>
-                            <th scope="row">Total Supply</th>
+                            <th scope="row">Total On-Chain Supply</th>
                             <td id="total-supply">Loading...</td>
-                            <td>CoinGecko maximum supply</td>
+                            <td>Verified from Solana Mainnet RPC</td>
                         </tr>
                         <tr>
                             <th scope="row">Circulating Supply</th>
                             <td id="circulating-supply">Loading...</td>
-                            <td>CoinGecko live supply</td>
+                            <td>Live verified Solana token supply</td>
                         </tr>
                         <tr>
-                            <th scope="row">Holders Count</th>
-                            <td id="holders-count">Loading...</td>
-                              <td id="holders-detail">Holder data unavailable</td>
+                            <th scope="row">24h Volume</th>
+                            <td id="volume-24h">Loading...</td>
+                            <td>24h decentralized trade volume</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Pool Liquidity</th>
+                            <td id="liquidity-usd">Loading...</td>
+                            <td>Total liquidity locked in Raydium/DEX</td>
                         </tr>
                         <tr>
                             <th scope="row">Token Age</th>
                             <td id="token-age">Loading...</td>
-                            <td>Based on pair creation date</td>
+                            <td>Age since pair creation on-chain</td>
                         </tr>
                         <tr>
                             <th scope="row">Network</th>
-                            <td>Solana</td>
-                            <td>Blockchain network</td>
+                            <td>Solana Mainnet</td>
+                            <td>High-speed decentralized ledger</td>
                         </tr>
                         <tr>
                             <th scope="row">Launchpad</th>
                             <td>Pump.fun</td>
-                            <td>Original launchpad</td>
+                            <td>Original launchpad origin</td>
                         </tr>
                         <tr>
-                            <th scope="row">Exchanges</th>
-                            <td>MEXC, Kraken</td>
-                            <td>$kekiius is available on MEXC and Kraken</td>
+                            <th scope="row">Exchanges &amp; DEX</th>
+                            <td>Raydium, Jupiter, MEXC</td>
+                            <td>$KEKIUS actively traded on-chain and CEXs</td>
                         </tr>
                     </tbody>
                 </table>
@@ -282,16 +297,24 @@
                     <button type="button" class="primary-btn" data-social="tg">Join free</button>
                 </article>
 
-                <article class="membership-card featured-membership">
-                    <span class="card-tag">Tier 02</span>
+                <article class="membership-card featured-membership" id="tier-vip-card">
+                    <span class="card-tag" id="vip-card-badge">Tier 02</span>
                     <h3>Maximus Circle</h3>
-                    <p class="price">0.5 SOL</p>
+                    <p class="price" id="vip-price-label">0.5 SOL</p>
                     <ul>
                         <li>Private community access</li>
                         <li>VIP drops and merch</li>
                         <li>Priority community calls</li>
                     </ul>
-                    <button type="button" class="primary-btn" data-social="x">Unlock VIP</button>
+                    <div class="vip-action-wrapper">
+                        <button type="button" class="primary-btn vip-action-btn" id="unlock-vip-btn">Unlock VIP</button>
+                        <a href="https://t.me/KekiusMod_bot" target="_blank" rel="noopener noreferrer" class="primary-btn vip-access-link-btn is-hidden" id="vip-unlocked-btn">
+                            ⚡ Enter VIP Bot
+                        </a>
+                    </div>
+                    <div id="vip-unlocked-notice" class="vip-unlocked-notice is-hidden">
+                        <span>🎉 Congratulations! VIP Active</span>
+                    </div>
                 </article>
 
                 <article class="membership-card">
@@ -303,8 +326,133 @@
                         <li>Exclusive event invites</li>
                         <li>Collab / ambassador access</li>
                     </ul>
-                    <button type="button" class="primary-btn" data-social="tg">Apply</button>
+                    <button type="button" class="primary-btn" id="open-fan-application">Apply</button>
                 </article>
+            </div>
+
+            <dialog id="fan-club-application-modal" class="application-modal" closedby="any" aria-labelledby="fan-application-title">
+                <div class="fan-application">
+                    <button type="button" class="modal-close-btn" id="close-fan-application" aria-label="Close fan club application">&times;</button>
+                    <form id="fan-club-application" novalidate>
+                        <div class="application-header">
+                            <span class="card-tag">Imperial Fan Club Application</span>
+                            <h3 id="fan-application-title">Apply for Imperial Holder access</h3>
+                            <p>Pass the rank check below first. Applications from wallets without a KEKIUS rank are turned down; come back when you achieve the required rank.</p>
+                        </div>
+
+                        <div class="application-fields">
+                            <label for="application-wallet">Holding wallet public address</label>
+                            <input id="application-wallet" name="wallet" class="checker-input" type="text" required autocomplete="off" placeholder="Enter the wallet you passed with" />
+
+                            <label for="application-telegram">Telegram username</label>
+                            <input id="application-telegram" name="telegram" class="checker-input" type="text" required autocomplete="off" placeholder="@your_username" />
+
+                            <label class="application-checkbox">
+                                <input id="application-commitment" name="commitment" type="checkbox" required />
+                                <span>I commit to long-term holding of $KEKIUS.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="primary-btn application-submit" id="application-submit" disabled>Submit application to KEK Support</button>
+                        <p id="application-status" class="application-status" role="status" aria-live="polite">Complete the rank check below to unlock the application.</p>
+                    </form>
+                </div>
+            </dialog>
+
+            <!-- Imperial Fan Status & Rank Checker -->
+            <div class="fan-status-section" id="fan-status-checker">
+                <div class="status-checker-header">
+                    <span class="card-tag">On-Chain Rank Inspector</span>
+                    <h3 class="status-checker-title">Check Your KEK Fan Status &amp; Imperial Rank</h3>
+                    <p class="status-checker-desc">
+                        Connect your wallet or enter any Solana public key to inspect your on-chain $KEKIUS holdings, duration of service, and military rank in the Maximus Empire.
+                    </p>
+                </div>
+
+                <div class="status-checker-controls">
+                    <div class="checker-input-row">
+                        <input type="text" id="checker-wallet-address" class="checker-input" placeholder="Enter Solana wallet address (e.g. 2d9a...)" aria-label="Solana wallet address" />
+                        <button type="button" class="primary-btn checker-btn" id="check-status-btn">Inspect Rank</button>
+                    </div>
+                    <div class="checker-quick-actions">
+                        <button type="button" class="checker-auto-btn" id="auto-detect-wallet-btn">⚡ Auto-Detect Connected Wallet</button>
+                    </div>
+                    <p id="checker-input-error" class="checker-input-error is-hidden" role="alert"></p>
+                </div>
+
+                <!-- Status Checking Loader -->
+                <div id="checker-loading" class="checker-loading is-hidden" aria-live="polite">
+                    <span class="status-indicator"></span>
+                    <span id="checker-loading-text">Scanning Solana ledger for $KEKIUS token accounts...</span>
+                </div>
+
+                <!-- Result Container: Rank Found -->
+                <div id="checker-result-success" class="fan-result-card is-hidden">
+                    <div class="rank-badge-row">
+                        <span class="rank-icon" id="rank-badge-icon">⚔️</span>
+                        <div class="rank-title-group">
+                            <span class="card-tag rank-tag" id="rank-tier-tag">Tier IV Legionary</span>
+                            <h4 class="rank-name" id="rank-display-name">Centurion Guardian</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="rank-metrics-grid">
+                        <div class="metric-block">
+                            <span class="metric-label">$KEKIUS Treasury</span>
+                            <strong class="metric-value" id="rank-holdings-amount">0</strong>
+                            <span class="metric-sub" id="rank-holdings-usd">≈ $0.00 USD</span>
+                        </div>
+                        <div class="metric-block">
+                            <span class="metric-label">Duration of Service</span>
+                            <strong class="metric-value" id="rank-duration-time">0 Days</strong>
+                            <span class="metric-sub" id="rank-veteran-title">New Recruit</span>
+                        </div>
+                    </div>
+
+                    <div class="rank-decree">
+                        <p id="rank-decree-text">By decree of Emperor Kekius: You are recognized as an honorable warrior of the Maximus Empire.</p>
+                    </div>
+                </div>
+
+                <!-- Result Container: Technical/RPC error (distinct from a genuine 0-balance result) -->
+                <div id="checker-result-error" class="fan-error-card is-hidden">
+                    <div class="plebeian-header">
+                        <span class="plebeian-icon">🛰️</span>
+                        <div>
+                            <span class="card-tag error-tag">Connection Issue</span>
+                            <h4 class="error-title">Couldn't reach the Solana network</h4>
+                        </div>
+                    </div>
+                    <p class="error-message" id="checker-error-message">
+                        All available RPC endpoints failed to respond. This is usually temporary — please try again in a moment.
+                    </p>
+                    <button type="button" class="primary-btn" id="checker-retry-btn">Try again</button>
+                </div>
+
+                <!-- Result Container: Plebeian 0-Token Callout -->
+                <div id="checker-result-plebeian" class="fan-plebeian-card is-hidden">
+                    <div class="plebeian-header">
+                        <span class="plebeian-icon">⚠️</span>
+                        <div>
+                            <span class="card-tag plebeian-tag">Unranked Civilian</span>
+                            <h4 class="plebeian-title">Plebeian Alert: 0 $KEKIUS Found!</h4>
+                        </div>
+                    </div>
+                    <p class="plebeian-message">
+                        By imperial decree of Emperor Kekius Maximus: Your treasury is entirely barren! An empire without $KEKIUS is no empire at all. You cannot claim legionary honor in the KEK Fan Club as a penniless plebeian.
+                    </p>
+                    <p class="plebeian-callout-action">
+                        Acquire $KEKIUS immediately to unlock your military rank and earn your place in the inner circle:
+                    </p>
+                    <div class="plebeian-buy-row">
+                        <a href="https://dexscreener.com/solana/CjyDeB42w4QSFA5pwpKC85SEZh92zsG8ARULLw8bc4Lh" target="_blank" rel="noopener noreferrer" class="primary-btn plebeian-buy-btn">
+                            🛒 Buy $KEKIUS on Dexscreener
+                        </a>
+                        <a href="https://jup.ag/swap/SOL-XC78JjRHnSqaysrHiTrhR8eRngFbvX3rrHyRjWEpump" target="_blank" rel="noopener noreferrer" class="primary-btn plebeian-swap-btn">
+                            ⚡ Swap on Jupiter
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="faq-list">
@@ -362,22 +510,22 @@
 
             <div class="gallery-grid" id="gallery-grid">
                 <article class="gallery-item" data-category="memes">
-                    <img src="./profile frame.jpg" alt="Kekius portrait meme art" />
+                    <img src="./profile-frame.svg" alt="Kekius portrait meme art" />
                 </article>
                 <article class="gallery-item" data-category="art">
-                    <img src="./rectangle frame.jpg" alt="Kekius emblem artwork" />
+                    <img src="./rectangle-frame.svg" alt="Kekius emblem artwork" />
                 </article>
                 <article class="gallery-item" data-category="community">
-                    <img src="./profile frame.jpg" alt="Community fan meme" />
+                    <img src="./profile-frame.svg" alt="Community fan meme" />
                 </article>
                 <article class="gallery-item" data-category="memes">
-                    <img src="./rectangle frame.jpg" alt="Kekius meme scene" />
+                    <img src="./rectangle-frame.svg" alt="Kekius meme scene" />
                 </article>
                 <article class="gallery-item" data-category="art">
-                    <img src="./profile frame.jpg" alt="Kekius abstract design" />
+                    <img src="./profile-frame.svg" alt="Kekius abstract design" />
                 </article>
                 <article class="gallery-item" data-category="community">
-                    <img src="./rectangle frame.jpg" alt="Fan community celebration art" />
+                    <img src="./rectangle-frame.svg" alt="Fan community celebration art" />
                 </article>
             </div>
         </div>
@@ -408,6 +556,95 @@
         </div>
     </section>
 
+    <!-- VIP Solana Payment Modal -->
+    <dialog id="vip-payment-modal" class="payment-modal" closedby="any" aria-labelledby="vip-modal-title">
+        <div class="modal-content-card">
+            <button type="button" class="modal-close-btn" id="close-vip-modal" aria-label="Close payment modal">&times;</button>
+
+            <!-- Active Payment Flow -->
+            <div id="vip-pay-flow" class="modal-flow">
+                <div class="modal-header">
+                    <span class="card-tag">VIP Fan Club · Tier 02</span>
+                    <h3 id="vip-modal-title">Unlock Maximus Circle</h3>
+                    <p class="modal-desc">Send <strong>0.5 SOL</strong> to unlock instant VIP access to the inner circle.</p>
+                </div>
+
+                <div class="payment-tabs" role="tablist" aria-label="Payment method tabs">
+                    <button type="button" class="payment-tab active" id="tab-btn-wallet" role="tab" aria-selected="true" aria-controls="tab-wallet-panel">
+                        Browser Wallet
+                    </button>
+                    <button type="button" class="payment-tab" id="tab-btn-manual" role="tab" aria-selected="false" aria-controls="tab-manual-panel">
+                        QR &amp; Manual Pay
+                    </button>
+                </div>
+
+                <!-- Tab 1: Browser Wallet -->
+                <div id="tab-wallet-panel" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-wallet">
+                    <div class="wallet-info-card">
+                        <div class="sol-badge">◎</div>
+                        <div class="wallet-meta">
+                            <span class="wallet-amount">0.5 SOL</span>
+                            <span id="wallet-provider-label" class="wallet-status-label">Detecting Solana wallet...</span>
+                        </div>
+                    </div>
+                    <button type="button" class="primary-btn pay-sol-btn" id="pay-wallet-submit-btn">
+                        Pay 0.5 SOL with Wallet
+                    </button>
+                    <p class="wallet-instruction-note">Works with Phantom, Solflare, Backpack, or standard browser wallets.</p>
+                </div>
+
+                <!-- Tab 2: Manual Pay & QR Code -->
+                <div id="tab-manual-panel" class="tab-panel is-hidden" role="tabpanel" aria-labelledby="tab-btn-manual">
+                    <div class="qr-container">
+                        <div id="payment-qr-code" class="qr-canvas-box" aria-label="Solana Pay QR Code"></div>
+                        <p class="qr-caption">Scan with Phantom / Solflare Mobile</p>
+                    </div>
+
+                    <div class="pay-field-group">
+                        <label class="pay-field-label" for="manual-pay-address">Send <strong>0.5 SOL</strong> to recipient address:</label>
+                        <div class="pay-input-with-action">
+                            <input type="text" id="manual-pay-address" class="address-input" readonly value="" />
+                            <button type="button" class="primary-btn copy-address-btn" id="copy-manual-address-btn">Copy</button>
+                        </div>
+                        <p class="address-audit-note"><a id="solscan-address-link" href="#" target="_blank" rel="noopener noreferrer">View this wallet on Solscan ↗</a> — this is the same single address used for every VIP payment.</p>
+                    </div>
+
+                    <div class="verify-field-group">
+                        <label class="pay-field-label" for="tx-signature-input">Paste Transaction Signature (Tx Hash):</label>
+                        <div class="pay-input-with-action">
+                            <input type="text" id="tx-signature-input" class="signature-input" placeholder="e.g. 5Knb... (Solana transaction signature)" />
+                            <button type="button" class="primary-btn verify-signature-btn" id="verify-signature-btn">Verify</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Status Box -->
+                <div id="payment-status-box" class="payment-status-box is-hidden" aria-live="polite">
+                    <span class="status-indicator"></span>
+                    <span id="payment-status-text">Processing transaction...</span>
+                </div>
+            </div>
+
+            <!-- VIP Reveal / Success Flow -->
+            <div id="vip-success-flow" class="modal-flow is-hidden">
+                <div class="vip-success-badge">👑</div>
+                <span class="card-tag">VIP Member Verified</span>
+                <h3>Congratulations for Joining the VIP!</h3>
+                <p class="modal-desc">Welcome to the Maximus Circle! Your payment of <strong>0.5 SOL</strong> has been verified.</p>
+
+                <div class="vip-reveal-box">
+                    <p class="congrats-subtext">You now have full access to the official VIP Telegram Bot:</p>
+                    <a href="https://t.me/KekiusMod_bot" target="_blank" rel="noopener noreferrer" class="primary-btn enter-bot-btn" id="modal-enter-vip-bot-btn">
+                        ⚡ Enter VIP Bot (@KekiusMod_bot)
+                    </a>
+                    <p class="vip-link-subtext">Direct Link: <a href="https://t.me/KekiusMod_bot" target="_blank" rel="noopener noreferrer">https://t.me/KekiusMod_bot</a></p>
+                </div>
+
+                <button type="button" class="primary-btn finish-vip-btn" id="finish-vip-btn">Close Window</button>
+            </div>
+        </div>
+    </dialog>
+
     <footer class="site-footer">
         <div class="footer-inner">
             <div>
@@ -418,12 +655,15 @@
             <div class="footer-links">
                 <a href="https://x.com/OG_kekius_Sol" target="_blank" rel="noreferrer">X</a>
                 <a href="https://t.me/kekius_portal_join" target="_blank" rel="noreferrer">Telegram</a>
-                <a href="#tokenomics">$kekiius</a>
+                <a href="#tokenomics">$kekius</a>
             </div>
         </div>
     </footer>
 
+    <!-- Solana & QR Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
+    <script src="https://unpkg.com/@solana/web3.js@1.95.8/lib/index.iife.min.js" defer></script>
     <!-- Page interactions -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
