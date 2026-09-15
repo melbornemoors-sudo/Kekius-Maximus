@@ -521,11 +521,11 @@ async function loadTokenomics() {
 
 // ==================== KEK Fan Status & Imperial Rank Checker ====================
 const FAN_RANKS = [
-    { min: 20000000, name: 'Maximus Praetor', tier: 'Tier I Imperial Council', icon: '👑', decree: 'Imperator! You stand among the wealthiest generals of Rome. The Emperor salutes your monumental treasury.' },
-    { min: 5000000, name: 'Imperial Legate', tier: 'Tier II Legion Commander', icon: '🏛️', decree: 'A legendary commander of the meme legions. Your diamond hands are inscribed with honor in the imperial archives.' },
-    { min: 1000000, name: 'Tribune of the Empire', tier: 'Tier III High Tribune', icon: '🦅', decree: 'An esteemed tribune holding imperial sway. Your defense of the realm brings glory to Kekius Maximus.' },
-    { min: 100000, name: 'Centurion Guardian', tier: 'Tier IV Centurion', icon: '⚔️', decree: 'A battle-hardened centurion guarding the gates. Your steadfast holding protects the empire against all dips.' },
-    { min: 1, name: 'Legionary Initiate', tier: 'Tier V Soldier', icon: '🛡️', decree: 'A loyal soldier sworn to the meme legions. Continue your crusade and stack $KEKIUS to rise in military rank.' }
+    { min: 20000000, name: 'Maximus Praetor', tier: 'Tier I Imperial Council', badge: './Kek%20diamond%20status.jpg', decree: 'Imperator! You stand among the wealthiest generals of Rome. The Emperor salutes your monumental treasury.' },
+    { min: 5000000, name: 'Imperial Legate', tier: 'Tier II Legion Commander', badge: './Kek%20golden%20status.jpg', decree: 'A legendary commander of the meme legions. Your diamond hands are inscribed with honor in the imperial archives.' },
+    { min: 1000000, name: 'Tribune of the Empire', tier: 'Tier III High Tribune', badge: './kek%20silver%20status.jpg', decree: 'An esteemed tribune holding imperial sway. Your defense of the realm brings glory to Kekius Maximus.' },
+    { min: 100000, name: 'Centurion Guardian', tier: 'Tier IV Centurion', badge: './Kek%20leather%20status.jpg', decree: 'A battle-hardened centurion guarding the gates. Your steadfast holding protects the empire against all dips.' },
+    { min: 1, name: 'Legionary Initiate', tier: 'Tier V Soldier', badge: './least%20kek%20status.jpg', decree: 'A loyal soldier sworn to the meme legions. Continue your crusade and stack $KEKIUS to rise in military rank.' }
 ];
 
 function getVeteranTitle(days) {
@@ -632,11 +632,14 @@ async function inspectFanStatus(address) {
             }
         }
 
-        const rank = FAN_RANKS.find((r) => totalBalance >= r.min) || FAN_RANKS[FAN_RANKS.length - 1];
+        const rank = FAN_RANKS.find((r) => totalBalance >= r.min);
         const veteran = getVeteranTitle(daysHeld);
         const totalUsdVal = totalBalance * currentTokenPriceUsd;
 
-        if (rankBadgeIcon) rankBadgeIcon.textContent = rank.icon;
+        if (rankBadgeIcon) {
+            rankBadgeIcon.src = rank.badge;
+            rankBadgeIcon.alt = `${rank.name} status badge`;
+        }
         if (rankTierTag) rankTierTag.textContent = rank.tier;
         if (rankDisplayName) rankDisplayName.textContent = rank.name;
         if (rankHoldingsAmount) rankHoldingsAmount.textContent = `${formatTokenAmount(totalBalance)} $KEKIUS`;

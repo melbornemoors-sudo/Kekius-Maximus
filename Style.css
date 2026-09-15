@@ -1627,14 +1627,11 @@ dialog.payment-modal::backdrop {
 }
 
 .rank-icon {
-	font-size: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: block;
 	width: 4.2rem;
 	height: 4.2rem;
 	border-radius: 50%;
-	background: linear-gradient(135deg, rgba(232, 184, 75, 0.25), rgba(95, 23, 30, 0.35));
+	object-fit: cover;
 	border: 2px solid var(--gold);
 	box-shadow: 0 0 20px rgba(232, 184, 75, 0.35);
 	flex-shrink: 0;
