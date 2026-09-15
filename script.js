@@ -28,6 +28,9 @@ const socialButtons = document.querySelectorAll('[data-social]');
 const marketplaceButtons = document.querySelectorAll('.marketplace-btn');
 const communityUpload = document.getElementById('community-upload');
 const uploadStatus = document.getElementById('upload-status');
+const galleryImageModal = document.getElementById('gallery-image-modal');
+const galleryFullImage = document.getElementById('gallery-full-image');
+const closeGalleryImageButton = document.getElementById('close-gallery-image');
 const fanApplicationModal = document.getElementById('fan-club-application-modal');
 const openFanApplicationButton = document.getElementById('open-fan-application');
 const closeFanApplicationButton = document.getElementById('close-fan-application');
@@ -68,6 +71,21 @@ const SOLANA_RPC_ENDPOINTS = [
     'https://solana-rpc.publicnode.com',
     'https://rpc.ankr.com/solana'
 ];
+
+// OPTIONAL BUT RECOMMENDED FOR RELIABILITY: every endpoint above is anonymous/keyless, and
+// providers are increasingly restricting or paywalling anonymous access to heavier methods
+// (confirmed: rpc.ankr.com already returns 403 for some chains without a key as of mid-2026).
+// There is no free, keyless, unlimited public Solana RPC that's guaranteed to keep working —
+// that's a real infrastructure constraint, not something client-side code can fully solve.
+// The actual fix: sign up for a free API key from a provider built for light dApp usage
+// (Helius has the most generous free tier in the Solana ecosystem — https://dev.helius.xyz,
+// free tier covers tens of thousands of requests/day) and paste it in below. It's normal and
+// safe to expose a free-tier read key in client-side code; it identifies your usage for
+// rate-limiting, it isn't a secret credential.
+const HELIUS_API_KEY = ''; // e.g. 'a1b2c3d4-...' — get one free at https://dev.helius.xyz
+if (HELIUS_API_KEY) {
+    SOLANA_RPC_ENDPOINTS.unshift(`https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`);
+}
 const JUPITER_PRICE_API_URL = 'https://api.jup.ag/price/v2?ids=';
 const MARKET_DATA_REFRESH_MS = 30000;
 const COMMUNITY_UPLOAD_KEY = 'kekius-community-gallery';
@@ -198,6 +216,39 @@ function setupGalleryFilters() {
     renderUploadedGalleryEntries();
 }
 
+function showGalleryImage(image) {
+    if (!galleryImageModal || !galleryFullImage) return;
+
+    galleryFullImage.src = image.currentSrc || image.src;
+    galleryFullImage.alt = image.alt;
+    galleryImageModal.showModal();
+}
+
+function setupGalleryImageViewer() {
+    if (!gallery || !galleryImageModal) return;
+
+    gallery.addEventListener('click', (event) => {
+        const image = event.target.closest('.gallery-item img');
+        if (image) showGalleryImage(image);
+    });
+
+    gallery.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const item = event.target.closest('.gallery-item');
+        const image = item?.querySelector('img');
+        if (!image) return;
+        event.preventDefault();
+        showGalleryImage(image);
+    });
+
+    gallery.querySelectorAll('.gallery-item').forEach((item) => item.setAttribute('tabindex', '0'));
+
+    closeGalleryImageButton?.addEventListener('click', () => galleryImageModal.close());
+    galleryImageModal.addEventListener('click', (event) => {
+        if (event.target === galleryImageModal) galleryImageModal.close();
+    });
+}
+
 function setupFaq() {
     if (!faqItems.length) return;
 
@@ -269,10 +320,10 @@ function formatTokenAmount(value) {
 
 // ==================== Direct Solana RPC & Market Data Live Sync ====================
 // Tries each known public RPC endpoint in turn until one answers successfully. Throws only
-// if every endpoint fails, with the last real error attached so callers can show something
-// meaningful instead of silently treating a network failure as "no data".
+// if every endpoint fails, with ALL collected errors attached (not just the last one) so
+// real failures are diagnosable instead of only showing whichever endpoint failed last.
 async function callSolanaRpc(method, params, { timeoutMs = 8000 } = {}) {
-    let lastError = null;
+    const failures = [];
 
     for (const endpoint of SOLANA_RPC_ENDPOINTS) {
         const controller = new AbortController();
@@ -287,26 +338,73 @@ async function callSolanaRpc(method, params, { timeoutMs = 8000 } = {}) {
             });
 
             if (!response.ok) {
-                lastError = new Error(`${endpoint} responded ${response.status}`);
+                failures.push(`${endpoint} → HTTP ${response.status}`);
                 continue;
             }
 
             const data = await response.json();
 
             if (data.error) {
-                lastError = new Error(data.error.message || `${endpoint} RPC error`);
+                failures.push(`${endpoint} → ${data.error.message || 'RPC error'}`);
                 continue;
             }
 
             return data.result;
         } catch (err) {
-            lastError = err;
+            failures.push(`${endpoint} → ${err.message || 'network error'}`);
         } finally {
             window.clearTimeout(timer);
         }
     }
 
-    throw lastError || new Error('All Solana RPC endpoints failed');
+    const combined = new Error(`All Solana RPC endpoints failed for ${method}: ${failures.join(' | ')}`);
+    combined.endpointFailures = failures;
+    throw combined;
+}
+
+const TOKEN_PROGRAM_ID = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+const ASSOCIATED_TOKEN_PROGRAM_ID = 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL';
+
+// Derives the standard Associated Token Account address for (owner, mint) without any RPC
+// call, using the same PDA formula every wallet (Phantom, Solflare, etc.) uses when a wallet
+// first receives a token. Requires the solanaWeb3 bundle for PublicKey + PDA derivation.
+function deriveAssociatedTokenAddress(ownerAddress, mintAddress) {
+    const owner = new solanaWeb3.PublicKey(ownerAddress);
+    const mint = new solanaWeb3.PublicKey(mintAddress);
+    const tokenProgram = new solanaWeb3.PublicKey(TOKEN_PROGRAM_ID);
+    const associatedProgram = new solanaWeb3.PublicKey(ASSOCIATED_TOKEN_PROGRAM_ID);
+
+    const [ata] = solanaWeb3.PublicKey.findProgramAddressSync(
+        [owner.toBuffer(), tokenProgram.toBuffer(), mint.toBuffer()],
+        associatedProgram
+    );
+    return ata.toBase58();
+}
+
+// Looks up a wallet's balance of one specific token via a single lightweight getAccountInfo
+// call on its derived Associated Token Account, instead of getTokenAccountsByOwner (a
+// getProgramAccounts-family "heavy" scan). Heavy scan methods are exactly what public RPC
+// providers throttle or paywall first — plain getAccountInfo on one address is one of the
+// cheapest, most universally-supported calls and is far less likely to be blocked.
+// Trade-off: this only finds tokens held in the *standard* associated token account. A wallet
+// holding the token in a manually-created, non-associated account (rare, but possible) would
+// need the getTokenAccountsByOwner fallback below to be detected.
+async function getTokenBalanceViaAta(ownerAddress, mintAddress) {
+    const ataAddress = deriveAssociatedTokenAddress(ownerAddress, mintAddress);
+    const accountInfo = await callSolanaRpc('getAccountInfo', [ataAddress, { encoding: 'jsonParsed' }]);
+
+    if (!accountInfo?.value) {
+        // Account has never been created — this IS a reliable, genuine 0-balance signal
+        // (not an error), since the standard ATA is created automatically on first receipt.
+        return { uiAmount: 0, tokenAccountPubkey: null, confirmedEmpty: true };
+    }
+
+    const tokenAmount = accountInfo.value.data?.parsed?.info?.tokenAmount;
+    return {
+        uiAmount: Number(tokenAmount?.uiAmount || 0),
+        tokenAccountPubkey: ataAddress,
+        confirmedEmpty: false
+    };
 }
 
 async function fetchSolanaTokenSupply(mintAddress) {
@@ -470,26 +568,38 @@ async function inspectFanStatus(address) {
     try {
         const TOKEN_MINT = 'XC78JjRHnSqaysrHiTrhR8eRngFbvX3rrHyRjWEpump';
 
-        // Any thrown error here means every RPC endpoint failed — a genuine connectivity
-        // problem, not evidence the wallet holds zero tokens. Handled in the catch block
-        // below with its own result card, distinct from the real "0 balance" case.
-        const result = await callSolanaRpc('getTokenAccountsByOwner', [
-            cleanAddress,
-            { mint: TOKEN_MINT },
-            { encoding: 'jsonParsed' }
-        ]);
-
-        const accounts = result?.value || [];
-
+        // Primary path: derive the standard Associated Token Account and do one cheap
+        // getAccountInfo call. This is far less likely to be blocked than a program-wide
+        // scan (see getTokenBalanceViaAta for why). Any thrown error here means every RPC
+        // endpoint failed — a genuine connectivity problem, not evidence of a zero balance.
         let totalBalance = 0;
         let tokenAccountPubkey = null;
 
-        for (const acc of accounts) {
-            const tokenAmount = acc.account?.data?.parsed?.info?.tokenAmount;
-            if (tokenAmount) {
-                totalBalance += Number(tokenAmount.uiAmount || 0);
-                if (!tokenAccountPubkey) {
-                    tokenAccountPubkey = acc.pubkey;
+        try {
+            const ataResult = await getTokenBalanceViaAta(cleanAddress, TOKEN_MINT);
+            totalBalance = ataResult.uiAmount;
+            tokenAccountPubkey = ataResult.tokenAccountPubkey;
+        } catch (ataError) {
+            // Fall back to the heavier program-account scan in case this wallet holds the
+            // token in a non-standard (manually created) token account, or the RPC endpoints
+            // that reject getAccountInfo for some reason still accept this call.
+            console.warn('ATA lookup failed, falling back to full account scan:', ataError);
+            if (checkerLoadingText) checkerLoadingText.textContent = 'Retrying with a broader ledger scan...';
+
+            const result = await callSolanaRpc('getTokenAccountsByOwner', [
+                cleanAddress,
+                { mint: TOKEN_MINT },
+                { encoding: 'jsonParsed' }
+            ]);
+
+            const accounts = result?.value || [];
+            for (const acc of accounts) {
+                const tokenAmount = acc.account?.data?.parsed?.info?.tokenAmount;
+                if (tokenAmount) {
+                    totalBalance += Number(tokenAmount.uiAmount || 0);
+                    if (!tokenAccountPubkey) {
+                        tokenAccountPubkey = acc.pubkey;
+                    }
                 }
             }
         }
@@ -544,7 +654,10 @@ async function inspectFanStatus(address) {
         if (checkerLoading) checkerLoading.classList.add('is-hidden');
         const errorMessageEl = document.getElementById('checker-error-message');
         if (errorMessageEl) {
-            errorMessageEl.textContent = `All available Solana RPC endpoints failed to respond (${error.message || 'network error'}). This does not mean your wallet has 0 $KEKIUS — it means the check couldn't complete. Please try again in a moment.`;
+            const detail = error.endpointFailures?.length
+                ? error.endpointFailures.join(' · ')
+                : (error.message || 'network error');
+            errorMessageEl.textContent = `Every available Solana RPC endpoint failed to respond (${detail}). This does not mean your wallet has 0 $KEKIUS — it means the check couldn't complete. Please try again in a moment.`;
         }
         if (checkerResultError) checkerResultError.classList.remove('is-hidden');
     }
@@ -697,6 +810,7 @@ if (communityUpload) {
 }
 
 setupGalleryFilters();
+setupGalleryImageViewer();
 setupFaq();
 setupSocialButtons();
 setupMarketplaceButtons();
